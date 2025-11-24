@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="sw">
+<head>
+<meta charset="UTF-8">
+<title>Kukodisha Nguo Za Kila Aina</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+body { font-family: Arial, sans-serif; margin:0; padding:0; background: #f0f4f8; color: #000; }
+header { background-color: #1e3c72; color: white; padding: 15px; text-align: center; }
+nav { display: flex; justify-content: center; flex-wrap: wrap; margin: 10px 0; }
+nav button { margin: 5px; padding: 8px 16px; cursor:pointer; border:none; background:#28527a; color:white; border-radius:5px; }
+nav button:hover { background:#1e3c72; }
+.container { max-width:1200px; margin:auto; padding:20px; }
+
+.category { display:none; margin-bottom:30px; }
+.category.active { display:block; }
+
+.product { width:220px; margin:10px; padding:15px; background:white; border-radius:10px; box-shadow:0 0 8px rgba(0,0,0,0.1); display:inline-block; text-align:center; }
+.product-placeholder { width:100%; height:150px; background:#d9e2ec; border-radius:5px; display:flex; align-items:center; justify-content:center; font-size:14px; color:#333; }
+
+form { background:white; padding:20px; border-radius:10px; box-shadow:0 0 10px rgba(0,0,0,0.1); max-width:600px; margin:auto; }
+form input, select, textarea, button { width:100%; padding:10px; margin:8px 0; border-radius:5px; border:1px solid #aaa; }
+form button { background:#1e3c72; color:white; cursor:pointer; }
+form button:hover { background:#28527a; }
+
+footer { text-align:center; padding:15px; background:#1e3c72; color:white; margin-top:40px; }
+
+table { width:100%; border-collapse:collapse; margin-top:20px; }
+th, td { border:1px solid #ccc; padding:8px; }
+th { background:#1e3c72; color:white; }
+
+button.action { padding:6px 10px; border:none; border-radius:4px; cursor:pointer; }
+button.confirm { background:green; color:white; }
+button.cancel { background:red; color:white; }
+
+.download { background:#28527a; color:white; border:none; padding:10px 20px; border-radius:5px; cursor:pointer; }
+@media(max-width:768px){ .product{ width:45%; } }
+@media(max-width:480px){ .product{ width:100%; } }
+</style>
+</head>
+<body>
+
+<header>
+    <h1>Kukodisha Nguo Za Kila Aina</h1>
+</header>
+
+<nav>
+    <button onclick="showCategory('harusi')">Mavazi ya Harusi</button>
+    <button onclick="showCategory('fashion')">Nguo za Fashion</button>
+    <button onclick="showCategory('watoto')">Nguo za Watoto</button>
+    <button onclick="showCategory('beach')">Nguo za Beach</button>
+</nav>
+
+<div class="container">
+
+    <!-- HARUSI -->
+    <div id="harusi" class="category">
+        <div class="product">
+            <div class="product-placeholder">Suti ya Harusi</div>
+            <h3>Suti ya Harusi</h3>
+        </div>
+        <div class="product">
+            <div class="product-placeholder">Shela ya Harusi</div>
+            <h3>Shela ya Harusi</h3>
+        </div>
+    </div>
+
+    <!-- FASHION -->
+    <div id="fashion" class="category">
+        <div class="product">
+            <div class="product-placeholder">Dress ya Party</div>
+            <h3>Dress ya Party</h3>
+        </div>
+        <div class="product">
+            <div class="product-placeholder">Top Stylish</div>
+            <h3>Top Stylish</h3>
+        </div>
+    </div>
+
+    <!-- WATOTO -->
+    <div id="watoto" class="category">
+        <div class="product">
+            <div class="product-placeholder">Shati ya Mtoto</div>
+            <h3>Shati ya Mtoto</h3>
+        </div>
+        <div class="product">
+            <div class="product-placeholder">Sketi ya Mtoto</div>
+            <h3>Sketi ya Mtoto</h3>
+        </div>
+    </div>
+
+    <!-- BEACH -->
+    <div id="beach" class="category">
+        <div class="product">
+            <div class="product-placeholder">Swimwear</div>
+            <h3>Swimwear</h3>
+        </div>
+        <div class="product">
+            <div class="product-placeholder">Beach Dress</div>
+            <h3>Beach Dress</h3>
+        </div>
+    </div>
+
+    <h2 style="text-align:center; margin-top:40px;">Fomu ya Booking</h2>
+
+    <form id="bookingForm">
+        <input type="text" name="name" placeholder="Jina lako" required>
+        <input type="email" name="email" placeholder="Email" required>
+        <input type="tel" name="phone" placeholder="Namba ya simu" required>
+        <select name="category" required>
+            <option value="">Chagua Category</option>
+            <option>Mavazi ya Harusi</option>
+            <option>Nguo za Fashion</option>
+            <option>Nguo za Watoto</option>
+            <option>Nguo za Beach</option>
+        </select>
+        <input type="text" name="product" placeholder="Bidhaa unayotaka" required>
+        <input type="text" name="size" placeholder="Size / Quantity" required>
+        <input type="date" name="date" required>
+        <textarea name="notes" placeholder="Maelezo ya ziada (optional)"></textarea>
+        <button type="submit">Submit Booking</button>
+    </form>
+
+    <h2 style="text-align:center; margin-top:50px;">Admin: Orodha ya Bookings</h2>
+    <button class="download" onclick="downloadCSV()">Download Bookings CSV</button>
+
+    <table id="adminTable">
+        <thead>
+            <tr>
+                <th>#</th><th>Jina</th><th>Email</th><th>Phone</th>
+                <th>Category</th><th>Product</th><th>Size</th>
+                <th>Date</th><th>Notes</th><th>Status</th><th>Actions</th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+
+</div>
+
+<footer>
+    <p>&copy; 2025 Kukodisha Nguo Za Kila Aina</p>
+</footer>
+
+<script>
+function showCategory(cat){
+    document.querySelectorAll('.category').forEach(c=>c.classList.remove('active'));
+    document.getElementById(cat).classList.add('active');
+}
+
+let allBookings = JSON.parse(localStorage.getItem('bookings')) || [];
+
+function checkExpired(){
+    let today = new Date().toISOString().split('T')[0];
+    allBookings.forEach(b=>{
+        if(b.status==='Pending' && b.date < today) b.status='Expired';
+    });
+}
+
+function renderAdminTable(){
+    checkExpired();
+    let tbody = document.querySelector('#adminTable tbody');
+    tbody.innerHTML = '';
+    
+    allBookings.forEach((b,i)=>{
+        let row = document.createElement('tr');
+        row.innerHTML = `
+            <td>${i+1}</td><td>${b.name}</td><td>${b.email}</td><td>${b.phone}</td>
+            <td>${b.category}</td><td>${b.product}</td><td>${b.size}</td>
+            <td>${b.date}</td><td>${b.notes}</td><td>${b.status}</td>
+            <td>
+                <button class="action confirm" onclick="updateStatus(${i},'Confirmed')">Confirm</button>
+                <button class="action cancel" onclick="updateStatus(${i},'Cancelled')">Cancel</button>
+            </td>
+        `;
+        tbody.appendChild(row);
+    });
+}
+
+function updateStatus(i, status){
+    allBookings[i].status = status;
+    saveBookings();
+    renderAdminTable();
+}
+
+function saveBookings(){
+    localStorage.setItem('bookings', JSON.stringify(allBookings));
+}
+
+document.querySelector('#bookingForm').addEventListener('submit', e=>{
+    e.preventDefault();
+
+    let form = new FormData(e.target);
+    let b = {};
+    form.forEach((v,k)=> b[k]=v);
+
+    b.status = 'Pending';
+    allBookings.push(b);
+    saveBookings();
+
+    alert("Booking yako imesajiliwa!");
+    e.target.reset();
+    renderAdminTable();
+});
+
+function downloadCSV(){
+    let csv = "Jina,Email,Phone,Category,Product,Size,Date,Notes,Status\n";
+    allBookings.forEach(b=>{
+        csv += `${b.name},${b.email},${b.phone},${b.category},${b.product},${b.size},${b.date},${b.notes},${b.status}\n`;
+    });
+
+    let a = document.createElement('a');
+    a.href = URL.createObjectURL(new Blob([csv], {type:'text/csv'}));
+    a.download = "bookings.csv";
+    a.click();
+}
+
+renderAdminTable();
+</script>
+
+</body>
+</html>
